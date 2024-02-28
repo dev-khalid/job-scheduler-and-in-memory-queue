@@ -37,8 +37,8 @@ agenda.on("start", (job) => {
 agenda.on("success:SEND-EMAIL", (job: Job<ISendEmail>) => {
   // console.log(`Sent Email Successfully to ${job.attrs.data.email}`);
 });
-agenda.on("fail:send email", (err, job) => {
-  console.log(`Job failed with error: ${err.message}`);
+agenda.on("fail:SEND-EMAIL", (err, job) => {
+  console.log(`Job failed with error: ${err.message}, ${job?.failReason}`);
 });
 
 let emails: string[] = [];
@@ -49,4 +49,4 @@ setTimeout(() => {
   emails.forEach(async (email) => {
     agenda.now("SEND-EMAIL", { email: email });
   });
-}, 2000);
+}, 10000);
